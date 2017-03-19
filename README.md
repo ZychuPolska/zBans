@@ -1,2 +1,2 @@
 # zBans
-Basic plugin
+Basic ban managment plugin for minecraft by zyzu
