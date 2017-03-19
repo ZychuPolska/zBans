@@ -29,7 +29,7 @@ public class Data {
 	}
 	private static void checkTables() throws SQLException{
 		openConnection();
-		stm.executeUpdate("CREATE TABLE IF NOT EXISTS 'users' (uuid varchar(128) not null, admin varchar(20) not null, reason varchar(100), ip varchar(50), name varchar(20), primary key(uuid));");
+		stm.executeUpdate("CREATE TABLE IF NOT EXISTS 'users' (uuid varchar(255) not null, admin varchar(255) not null, reason varchar(255) not null, ip varchar(255), name varchar(255) not null, primary key(uuid));");
 		closeConnection();
 	}
 	
@@ -66,10 +66,11 @@ public class Data {
 		
 		openConnection();
 		for(BannedUser u : BannedUserUtils.getUsers()){
-			
-			stm.executeUpdate("INSERT OR IGNORE INTO users VALUES ('"+u.getUuid().toString()+"', "+u.getAdmin()+", "+u.getReason()+", "+(u.getIp() == null ? null : u.getIp().toString())+", "+u.getName()+");");
-			stm.executeUpdate("UPDATE users SET uuid="+u.getUuid().toString()+", admin="+u.getAdmin()+", reason="+u.getReason()+", ip="+(u.getIp() == null ? null : u.getIp().toString()+", name="+u.getName())+
-					"WHERE uuid=" + u.getUuid().toString()+";");
+			//String toexecute = "INSERT OR IGNORE INTO users (uuid,admin,reason,ip,name) VALUES ('smieszneuuid','maciek','jakis tam powod','null','zyzu')";
+			//stm.executeUpdate(toexecute);
+			stm.executeUpdate("INSERT OR IGNORE INTO users VALUES ('"+u.getUuid().toString()+"', '"+u.getAdmin()+"', '"+u.getReason()+"', '"+(u.getIp() == null ? null : u.getIp().toString())+"', '"+u.getName()+"');");
+			stm.executeUpdate("UPDATE users SET uuid='"+u.getUuid().toString()+"', admin='"+u.getAdmin()+"', reason='"+u.getReason()+"', ip='"+(u.getIp() == null ? null : u.getIp().toString()+"', name='"+u.getName())+
+					"' WHERE uuid='" + u.getUuid().toString()+"';");
 		}
 		
 		
