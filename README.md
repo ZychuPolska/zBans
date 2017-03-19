@@ -1,0 +1,2 @@
+# zBans
+Basic plugin
