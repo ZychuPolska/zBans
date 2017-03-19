@@ -1,0 +1,8 @@
+name: ZBans
+author: zyzu
+version: 0.1
+main: tk.zcraft.bans.Main
+
+commands:
+  zban:
+  zunban:
