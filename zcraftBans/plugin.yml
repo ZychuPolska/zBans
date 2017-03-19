@@ -6,3 +6,5 @@ main: tk.zcraft.bans.Main
 commands:
   zban:
   zunban:
+  ztemp:
+  zkick:

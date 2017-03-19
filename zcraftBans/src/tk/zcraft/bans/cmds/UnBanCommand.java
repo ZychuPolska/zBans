@@ -1,5 +1,7 @@
 package tk.zcraft.bans.cmds;
 
+import java.sql.SQLException;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -23,7 +25,12 @@ public class UnBanCommand {
 			sender.sendMessage("§cTaki gracz nie jest zbanowany!");
 			return;
 		}
-		BannedUserUtils.unBan(u); //TODO
+		try {
+			BannedUserUtils.unBan(u);
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} 
 		sender.sendMessage("§aOdbanowano gracza "+ args[0]);
 	}
 

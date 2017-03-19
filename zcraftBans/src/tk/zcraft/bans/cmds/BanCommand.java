@@ -10,6 +10,7 @@ import tk.zcraft.bans.objects.BannedUser;
 
 public class BanCommand {
 	
+	@SuppressWarnings("deprecation")
 	public void ban(CommandSender sender, Command cmd, String label, String[] args){
 		if(!sender.hasPermission("zban.ban")){
 			sender.sendMessage("§cBrak uprawnien");
@@ -22,12 +23,12 @@ public class BanCommand {
 		if(args.length == 1){
 			if(Bukkit.getPlayer(args[0]) != null){
 				Player p = Bukkit.getPlayer(args[0]);
-				BannedUser u = new BannedUser(p, (sender.getName().equalsIgnoreCase("CONSOLE") ? "konsola" : sender.getName()), "podstawowy");
+				new BannedUser(p, (sender.getName().equalsIgnoreCase("CONSOLE") ? "konsola" : sender.getName()), "podstawowy");
 				p.kickPlayer("DEFAULT");
 				return;
 			}else{
 				OfflinePlayer p = Bukkit.getOfflinePlayer(args[0]);
-				BannedUser u = new BannedUser(p, (sender.getName().equalsIgnoreCase("CONSOLE") ? "konsola" : sender.getName()), "podstawowy");
+				new BannedUser(p, (sender.getName().equalsIgnoreCase("CONSOLE") ? "konsola" : sender.getName()), "podstawowy");
 				sender.sendMessage("§cZbanowano gracza offline!");
 				return;
 			}
@@ -35,16 +36,16 @@ public class BanCommand {
 		String reason = "";
 		StringBuilder sb = new StringBuilder(reason);
 		for(int i=1;i<args.length;i++){
-			sb.append(args[1]);
+			sb.append(args[i]).append(" ");
 		}
 		if(Bukkit.getPlayer(args[0]) != null){
 			Player p = Bukkit.getPlayer(args[0]);
-			BannedUser u = new BannedUser(p, (sender.getName().equalsIgnoreCase("CONSOLE") ? "konsola" : sender.getName()), reason);
-			p.kickPlayer("BANMSG\n"+reason);
+			new BannedUser(p, (sender.getName().equalsIgnoreCase("CONSOLE") ? "konsola" : sender.getName()), sb.toString());
+			p.kickPlayer("BANMSG\n"+sb.toString());
 			return;
 		}else{
 			OfflinePlayer p = Bukkit.getOfflinePlayer(args[0]);
-			BannedUser u = new BannedUser(p, (sender.getName().equalsIgnoreCase("CONSOLE") ? "konsola" : sender.getName()), reason);
+			new BannedUser(p, (sender.getName().equalsIgnoreCase("CONSOLE") ? "konsola" : sender.getName()), sb.toString());
 			sender.sendMessage("§cZbanowano gracza offline!");
 			return;
 		}
