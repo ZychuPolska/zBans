@@ -5,6 +5,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import tk.zcraft.bans.data.CfgManager;
+
 public class KickCmd {
 	
 	
@@ -23,7 +25,8 @@ public class KickCmd {
 				return;
 			}
 			Player p = Bukkit.getPlayer(args[0]);
-			p.kickPlayer("podstawowy");
+			Bukkit.broadcastMessage(CfgManager.getKickbc(p, sender, null));
+			p.kickPlayer(CfgManager.getKickmsg(p, sender, null));
 			
 		}else{
 			if(Bukkit.getPlayer(args[0]) == null){
@@ -36,7 +39,8 @@ public class KickCmd {
 			for(int i = 1;i<args.length;i++){
 				sb.append(args[i]).append(" ");
 			}
-			p.kickPlayer(sb.toString());
+			Bukkit.broadcastMessage(CfgManager.getKickbc(p, sender, sb.toString()));
+			p.kickPlayer(CfgManager.getKickmsg(p, sender, sb.toString()));
 		}
 	}
 

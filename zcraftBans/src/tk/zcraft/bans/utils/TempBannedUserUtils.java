@@ -27,7 +27,7 @@ private static List<TempBannedUser> users = new ArrayList<TempBannedUser>();
 		removeBan(u);
 		Data.deleteFromBase(u);
 		u.setAdmin(null);
-	
+	    u.setUbtime(0);
 		u.setName(null);
 		u.setReason(null);
 		u.setUuid(null);

@@ -1,1 +1,3 @@
-poprawic zapis tempbanneduser dosqlite (ubtime)
+dokonczyc config
+dodac placeholder {DATE} z data bana
+dodac placeholder {UBDATE} z data unbana

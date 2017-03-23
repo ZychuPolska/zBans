@@ -31,8 +31,8 @@ public class Data {
 	}
 	private static void checkTables() throws SQLException{
 		openConnection();
-		stm.executeUpdate("CREATE TABLE IF NOT EXISTS 'users' (uuid varchar(255) not null, admin varchar(255) not null, reason varchar(255) not null, ip varchar(255), name varchar(255) not null, primary key(uuid));");
-		stm.executeUpdate("CREATE TABLE IF NOT EXISTS 'tempusers' (uuid varchar(255) not null, admin varchar(255) not null, reason varchar(255) not null, ubtime long not null, name varchar(255) not null, primary key(uuid));");
+		stm.executeUpdate("CREATE TABLE IF NOT EXISTS 'users' (uuid VARCHAR(255) not null, admin varchar(255) not null, reason varchar(255) not null, ip varchar(255), name varchar(255) not null, primary key(uuid));");
+		stm.executeUpdate("CREATE TABLE IF NOT EXISTS 'tempusers' (uuid VARCHAR(255) not null, admin varchar(255) not null, reason varchar(255) not null, ubtime varchar(255) not null, name varchar(255) not null, primary key(uuid));");
 		closeConnection();
 	}
 	
@@ -63,13 +63,13 @@ public class Data {
 			u.setName(rs.getString("name"));
 			
 		}
-		ResultSet rst = stm.executeQuery("Select * FROM 'users'");
+		ResultSet rst = stm.executeQuery("Select * FROM 'tempusers'");
 		while(rst.next()){
 			TempBannedUser u = new TempBannedUser(rst.getString("uuid"));
 			u.setAdmin(rst.getString("admin"));
 			u.setReason(rst.getString("reason"));
 			u.setName(rst.getString("name"));
-			u.setUbtime(rst.getLong("ubtime"));
+			u.setUbtime(Long.parseLong(rst.getString("ubtime")));
 			
 		}
 		closeConnection();
@@ -85,8 +85,8 @@ public class Data {
 					"' WHERE uuid='" + u.getUuid().toString()+"';");
 		}
 		for(TempBannedUser u : TempBannedUserUtils.getUsers()){
-			stm.executeUpdate("INSERT OR IGNORE INTO users VALUES ('"+u.getUuid().toString()+"', '"+u.getAdmin()+"', '"+u.getReason()+"', '"+u.getUbtime()+"', '"+u.getName()+"');");
-			stm.executeUpdate("UPDATE users SET uuid='"+u.getUuid().toString()+"', admin='"+u.getAdmin()+"', reason='"+u.getReason()+"', ubtime='"+u.getUbtime()+"'name='"+u.getName()+
+			stm.executeUpdate("INSERT OR IGNORE INTO tempusers VALUES ('"+u.getUuid().toString()+"', '"+u.getAdmin()+"', '"+u.getReason()+"', '"+String.valueOf(u.getUbtime())+"', '"+u.getName()+"');");
+			stm.executeUpdate("UPDATE tempusers SET uuid='"+u.getUuid().toString()+"', admin='"+u.getAdmin()+"', reason='"+u.getReason()+"', ubtime='"+String.valueOf(u.getUbtime())+"', name='"+u.getName()+
 					"' WHERE uuid='" + u.getUuid().toString()+"';");
 		}
 		//CREATE TABLE IF NOT EXISTS 'tempusers' (uuid varchar(255) not null, admin varchar(255) not null, reason varchar(255) not null, ubtime long not null, name varchar(255) not null, primary key(uuid));

@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import tk.zcraft.bans.data.CfgManager;
 import tk.zcraft.bans.objects.BannedUser;
 
 public class BanCommand {
@@ -23,12 +24,16 @@ public class BanCommand {
 		if(args.length == 1){
 			if(Bukkit.getPlayer(args[0]) != null){
 				Player p = Bukkit.getPlayer(args[0]);
-				new BannedUser(p, (sender.getName().equalsIgnoreCase("CONSOLE") ? "konsola" : sender.getName()), "podstawowy");
-				p.kickPlayer("DEFAULT");
+				BannedUser u = new BannedUser(p, (sender.getName().equalsIgnoreCase("CONSOLE") ? "konsola" : sender.getName()), "podstawowy");
+				Bukkit.broadcastMessage(CfgManager.getBanbc(u));
+				p.kickPlayer(CfgManager.getBankick(u));
 				return;
 			}else{
 				OfflinePlayer p = Bukkit.getOfflinePlayer(args[0]);
-				new BannedUser(p, (sender.getName().equalsIgnoreCase("CONSOLE") ? "konsola" : sender.getName()), "podstawowy");
+				//Bukkit.broadcastMessage(message);
+				BannedUser u = new BannedUser(p, (sender.getName().equalsIgnoreCase("CONSOLE") ? "konsola" : sender.getName()), "podstawowy");
+				Bukkit.broadcastMessage(CfgManager.getBanbc(u));
+				
 				sender.sendMessage("§cZbanowano gracza offline!");
 				return;
 			}
@@ -39,13 +44,19 @@ public class BanCommand {
 			sb.append(args[i]).append(" ");
 		}
 		if(Bukkit.getPlayer(args[0]) != null){
+			//Bukkit.broadcastMessage(message);
 			Player p = Bukkit.getPlayer(args[0]);
-			new BannedUser(p, (sender.getName().equalsIgnoreCase("CONSOLE") ? "konsola" : sender.getName()), sb.toString());
-			p.kickPlayer("BANMSG\n"+sb.toString());
+			BannedUser u = new BannedUser(p, (sender.getName().equalsIgnoreCase("CONSOLE") ? "konsola" : sender.getName()), sb.toString());
+			Bukkit.broadcastMessage(CfgManager.getBanbc(u));
+			p.kickPlayer(CfgManager.getBankick(u));
+			
 			return;
 		}else{
 			OfflinePlayer p = Bukkit.getOfflinePlayer(args[0]);
-			new BannedUser(p, (sender.getName().equalsIgnoreCase("CONSOLE") ? "konsola" : sender.getName()), sb.toString());
+			//Bukkit.broadcastMessage(message);
+			BannedUser u = new BannedUser(p, (sender.getName().equalsIgnoreCase("CONSOLE") ? "konsola" : sender.getName()), sb.toString());
+			Bukkit.broadcastMessage(CfgManager.getBanbc(u));
+			
 			sender.sendMessage("§cZbanowano gracza offline!");
 			return;
 		}

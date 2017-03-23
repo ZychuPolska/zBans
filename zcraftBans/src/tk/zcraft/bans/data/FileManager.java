@@ -17,7 +17,7 @@ public class FileManager {
 		if(!database.exists()){
 			database.createNewFile();
 		}
-		//if(!cfg.exists()) Main.getInst().saveDefaultConfig();
+		if(!cfg.exists()) Main.getInst().saveDefaultConfig();
 	}
 	
 	public static File getMainFolder(){

@@ -1,0 +1,20 @@
+#####################################################
+# ZBASIC BANS
+
+#
+#VARIABLES
+# {PLAYER} - banned player
+# {ADMIN} - who banned player
+# {REASON} - reason of ban
+# \n - new line
+#Ban broadcast message
+ban-bc-msg: "Gracz {PLAYER} zostal zbanowany przez {ADMIN} za {REASON}"
+
+#Ban kick msg
+ban-kick-msg: "[BAN]\nZostales zbanowany przez:\n{ADMIN}\nza {REASON}"
+
+#Kick broadcast message
+kick-bc-msg: "{PLAYER} zostal wyrzucony za {REASON}"
+
+#Kick msg
+kick-msg: "[KICK] Zostales wyrzucony za {REASON}"

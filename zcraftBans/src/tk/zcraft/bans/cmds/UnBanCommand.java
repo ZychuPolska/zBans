@@ -6,7 +6,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
 import tk.zcraft.bans.objects.BannedUser;
+import tk.zcraft.bans.objects.TempBannedUser;
 import tk.zcraft.bans.utils.BannedUserUtils;
+import tk.zcraft.bans.utils.TempBannedUserUtils;
 
 public class UnBanCommand {
 	
@@ -21,17 +23,30 @@ public class UnBanCommand {
 		}
 		
 		BannedUser u = BannedUser.get(args[0]);
-		if(u==null){
-			sender.sendMessage("§cTaki gracz nie jest zbanowany!");
+		TempBannedUser ut = TempBannedUser.get(args[0]);
+		if(u!=null){
+			sender.sendMessage("§aOdbanowano gracza "+ args[0]);
+			try {
+				BannedUserUtils.unBan(u);
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			} 
+			
+			return;
+		}else if(ut!=null){
+			sender.sendMessage("§aOdbanowano gracza "+ args[0]);
+			try {
+				TempBannedUserUtils.unBan(ut);
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			} 
 			return;
 		}
-		try {
-			BannedUserUtils.unBan(u);
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-		} 
-		sender.sendMessage("§aOdbanowano gracza "+ args[0]);
+		
+		
+		sender.sendMessage("§cTaki gracz nie jest zbanowany!");
 	}
 
 }
